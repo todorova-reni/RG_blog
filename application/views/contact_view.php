@@ -126,24 +126,36 @@
                 <table>
                     <tr>
                         <th><label for="name">Name: </label></th>
-                        <td><input type="text" name="name" id="name"></td>
+                        <td><input type="text" name="name" id="name" maxlength="30" required placeholder="Your name here..."></td>
                     </tr>
                     <tr>
                         <th><label for="tel">Phone: </label></th>
-                        <td><input type="tel" name="tel" id="tel" size="10"></td>
+                        <td><input type="tel" name="tel" id="tel" size="10" required placeholder="Your phone number..."></td>
                     </tr>
                     <tr>
                         <th><label for="email">Email: </label></th>
-                        <td><input type="email" name="email" id="email" maxlength="30"></td>
+                        <td><input type="email" name="email" id="email" maxlength="30" required placeholder="Your Email address..."></td>
                     </tr>
                     <tr>
                         <th><label for="mssg">Message: </label></th>
-                        <td><textarea name="mssg" id="mssg" placeholder="Type you message here..."></textarea></td>
+                        <td><textarea name="mssg" id="mssg" placeholder="Type your message here..." required></textarea></td>
                     </tr>
                 </table>
             <input class="button" type="submit" value="Send">
             <input class="button" type="reset" value="Cancel">
             <?php echo form_close();?>
+
+           <!-- <div class="list">
+
+                <?php foreach ($rows as $row) {?>
+                    <p>№:&#32;<?php echo $row->id; ?></p>
+                    <p>Name:&#32;<?php echo $row->name; ?></p>
+                    <p>Tel:&#32;<?php echo $row->phone; ?></p>
+                    <p>Email:&#32;<?php echo $row->email; ?></p>
+                    <p>Message:&#32;<?php echo $row->message; ?></p>
+                    <hr />
+                <?php }?>
+           </div>-->
         </div>
 
         <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
