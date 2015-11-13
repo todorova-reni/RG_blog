@@ -78,20 +78,35 @@
             text-align: center;
         }
         table{
-            width: 50%;
+            width: 80%;
+            margin:0 auto;
+            text-align: left;
+        }
+        table th, table td{
+            display: block;
+            width: 100%;
+        }
+        table td{
+            height: 25px;
         }
         table tr{
-            height: 30px;
+            display: block;
+        }
+        table tr:last-child{
+            margin-top: 15px;
         }
         table th label{
             width: 100px;
-            font-size: 15px;
+            font-size: 18px;
+        }
+        #captcha{
+            font-size: 13px;
         }
         table tr input{
-            width: 99%
+            width: 100%
         }
         table tr textarea{
-            width: 250px;
+            width: 100%;
         }
         form .button {
             width: 100px;
@@ -102,11 +117,10 @@
             border-radius: 5px;
         }
         div.msg{
-            width: 300px;
+            width: 400px;
             margin: 0 auto;
             padding: 10px 15px;
             font: oblique 15px Arial;
-            border: 1px solid #dddddd;
         }
         div.error{
             color: red;
@@ -139,6 +153,10 @@
                     <tr>
                         <th><label for="mssg">Message: </label></th>
                         <td><textarea name="mssg" id="mssg" placeholder="Type your message here..." required></textarea></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $image.'<br>'; ?><label id="captcha" for="captcha">Enter the text from the picture above</label></th>
+                        <td><input type="text" name="captcha" id="captcha" maxlength="5" ></td>
                     </tr>
                 </table>
             <input class="button" type="submit" value="Send">

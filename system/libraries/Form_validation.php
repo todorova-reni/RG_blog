@@ -1376,6 +1376,32 @@ class CI_Form_validation {
 		return str_replace(array('<?php', '<?PHP', '<?', '?>'),  array('&lt;?php', '&lt;?PHP', '&lt;?', '?&gt;'), $str);
 	}
 
+    // --------------------------------------------------------------------
+	/**
+     * Match captcha
+     *
+     * @access	public
+     * @param	string
+     * @param	field
+     * @return  bool
+     */
+    public function  match_captcha($str, $field, $expiration = 300){
+
+        list($table, $field) = explode('.', $field);
+        $expire = time() - $expiration;
+        $this->CI->db->where('time <', $expire);
+        $this->CI->db->delete($table);
+
+        $query = $this->CI->db->limit(1)->get_where($table, array($$field => $str));
+
+        if($query->num_rows() == 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
 }
 // END Form Validation Class
 

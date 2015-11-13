@@ -28,7 +28,8 @@ class Data_model extends  CI_Model{
         );
        return $this->db->insert('email', $data);
     }
-    public function addTable(){
+
+   /*public function addTable(){
         $this->load->dbforge();
 
         $fields = array(
@@ -58,5 +59,5 @@ class Data_model extends  CI_Model{
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('email');
-    }
+    }*/
 }
