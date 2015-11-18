@@ -41,7 +41,7 @@
  */
 if ( ! function_exists('word_limiter'))
 {
-	function word_limiter($str, $limit = 100, $end_char = '&#8230;')
+	function word_limiter($str, $limit = 100, $end_char = '')
 	{
 		if (trim($str) == '')
 		{

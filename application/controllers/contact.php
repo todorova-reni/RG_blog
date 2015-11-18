@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Created by PhpStorm.
  * User: Reni
@@ -11,27 +12,26 @@ defined('BASEPATH') OR exit('u no here');
 class Contact extends  CI_Controller{
     public function  __construct(){
         parent::__construct();
-
-        $this->load->helper('captcha');
         $this->load->model('captcha_model');
         $this->load->model('data_model');
     }
 
     public function  index(){
+        $data['title'] = 'Contact';
+        $data['heading'] = 'Contact Form';
+        $captcha = $this->captcha_model->generateCaptcha();
+        $_SESSION['captcha'] = $captcha['word'];
+       // $this->session->set_userdata('captcha_word', $captcha['word']);
 
-        $data['image'] = $this->captcha_model->createCaptcha();
-
-        $data['rows'] = $this->data_model->getAll();
-
-        $this->load->view('contact_view', $data);
+       // $data['rows'] = $this->data_model->getAll();
+        $this->load->view('inc/header',$data);
+        $this->load->view('contact_view', $captcha);
+        $this->load->view('inc/footer');
     }
 
 
     public function submission()
     {
-        if (!$this->input->is_ajax_request()) {
-            exit( 'no valid request' );
-        }
 
         $FormRules = array(
             array(
@@ -57,31 +57,41 @@ class Contact extends  CI_Controller{
              array(
                  'field' => 'captcha',
                  'label' => 'Captcha',
-                 'rules' => 'trim|strip_tags|xss_clean|required|max_length[5]|callback_captchaCheck|match_captcha[captcha.word]'
+                 'rules' => 'trim|strip_tags|xss_clean|required|max_length[5]|callback_captchaCheck'
              )
         );
 
         $this->form_validation->set_rules( $FormRules );
 
-        if ($this->form_validation->run() === TRUE) {
-            $this->load->view('form_success');
-            $this->create_record();
-            $this->load->view('contact_view');
-            $this->send_email();
+        if ($this->form_validation->run() === FALSE) {
+            $captcha = $this->captcha_model->generateCaptcha();
+            $this->load->view('inc/header');
+            $this->load->view('contact_view', $captcha);
+            $this->load->view('inc/footer');
+            $this->load->view('form_error');
+            $_SESSION['captcha'] = $captcha['word'];
         }
         else {
-            $data['image'] = $this->captcha_model->createCaptcha();
-            $this->load->view('form_error');
+            $_SESSION['captcha'] = '';
+            $captcha = $this->captcha_model->generateCaptcha();
+            $this->load->view('inc/header');
+            $this->load->view('form_success');
+            $this->load->view('contact_view', $captcha);
+            $this->load->view('inc/footer');
+            $this->create_record();
+            //$this->send_email();
         }
     }
 
-    public function  captchaCheck($value){
-        if($value == ''){
-            $this->form_validation->set_message('captchaCheck','Please enter the text from the image');
-            return false;
+    public function  captchaCheck(){
+        //$value =$this->input->post('captcha');
+
+        if($this->input->post('captcha') == $_SESSION['captcha']){
+           return true;
         }
         else{
-            return true;
+            $this->form_validation->set_message('captchaCheck','Please enter the text from the image!');
+            return false;
         }
 
     }

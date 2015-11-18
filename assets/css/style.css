@@ -1,0 +1,242 @@
+body{
+}
+.red{
+    border: 1px solid crimson;
+    border-top:none;
+}
+
+.wrapper{
+    margin: 0 auto;
+    padding: 0px;
+}
+.content{
+    float:none;
+    margin: 0 auto;
+    padding: 10px;
+}
+header{
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    font-size: 12px;
+    color: #555555;
+}
+header nav{
+    height: 100px;
+    background-color: #292929;
+}
+header .menu{
+    float:none;
+    font-size: 20px;
+    margin: 0 auto;
+}
+header ul li{
+    float: right;
+    display: inline-block;
+    list-style-type: none;
+    border: 1px solid #1d1d1d;
+    border-bottom: none;
+    border-top: none;
+}
+header ul li:hover{
+    border-bottom: 5px solid #58c93a;
+
+}
+header ul li a:hover{
+    color: #58c93a;
+    display: block;
+    text-decoration: none;
+}
+header ul li a{
+    padding: 35px 40px;
+    text-decoration: none;
+    display: block;
+    color: #ffffff;
+}
+/******************** FOOTER **************************/
+footer{
+    height: 200px;
+    position: relative;
+    bottom: 0px;
+    background-color: #292929;
+    color: #ffffff;
+}
+/************** CONTACT FORM ***************************/
+h2{
+    text-align: center;
+    margin-bottom: 10px;
+}
+form{
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+}
+.contact{
+    width: 80%;
+    margin:0 auto;
+    text-align: left;
+}
+.contact th, .contact td{
+    display: block;
+    width: 100%;
+    height: 30px;
+}
+.contact tr{
+    display: block;
+}
+.cap img{
+    margin-top: 25px;
+}
+.cap td{
+    height: 10px;
+}
+.cap th{
+    height: 100px;
+}
+.contact tr label{
+    font-size: 18px;
+    display: block;
+}
+.cap_lb{
+    padding: 5px;
+    font-size: 13px;
+}
+.contact tr input{
+    width: 100%
+}
+.contact tr textarea{
+    width: 100%;
+}
+form .button {
+    width: 165px;
+    height: 40px;
+    margin-top: 40px;
+    margin-left: 25px;
+    text-align: center;
+    font: bold 18px Helvetica;
+    background-color: #444444;
+    color: #58c93a;
+    border: 1px solid #292929;
+    border-radius: 5px;
+}
+form .button:hover{
+    background-color: #292929;
+}
+
+/****************** ALERTS***********/
+
+div.msg{
+    width: 400px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    font: oblique 18px Arial;
+}
+div.error{
+    color: red;
+}
+div.success{
+    padding: 20px;
+    color: #58c93a;
+}
+/************ EDIT POST ***********/
+.new{
+    text-align: left;
+}
+.new button{
+    background-color: #444444;
+    width: 150px;
+    height: 45px;
+    border-radius: 15px;
+}
+.new a{
+    font: oblique 16px Helvetica;
+    color: #58c93a;
+    text-decoration: none;
+    padding: 10px;
+}
+.edit{
+    margin:0 auto;
+}
+.edit form{
+    width: 100%;
+    padding: 20px;
+    font: oblique 17px Helvetica;
+}
+.edit .table th, .edit .table td{
+    border:none;
+}
+.edit td{
+    text-align: left;
+}
+.edit form label{
+    padding: 5px;
+    text-align: right;
+    width: 100%;
+}
+.edit form input, .edit form textarea{
+    width: 80%;
+
+}
+.edit form .button{
+    text-align: center;
+    width: 200px;
+    margin:0 auto;
+}
+
+/****************** SINGLE POST ******************/
+hr{
+    border-color: #58c93a;
+}
+.post{
+    text-align: left;
+    color: #00CC00;
+}
+.info i{
+    padding: 5px;
+}
+.info {
+    padding:10px;
+    color: #737373;
+    font-size: 15px;
+}
+p a{
+    padding: 5px;
+    text-decoration: none;
+    color: #58c93a;
+    font: bold 15px Helvetica;
+}
+p a:hover, .title a:hover{
+    color: #00CC00;
+    text-decoration: none;
+}
+p{
+    text-align: justify;
+}
+.thumb{
+    padding: 10px;
+}
+.title{
+    padding: 10px 0;
+}
+.title a{
+    color: #58c93a;
+    text-decoration: none;
+}
+.pagination{
+    margin: 0 auto;
+    text-align: center;
+}
+.pagination > a:active, .pagination > a:focus{
+    background-color: #eee;
+    border-color: #ddd;
+}
+.pagination a{
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+/************** LIST TABLE ***********************/
+
+.table img{
+    width: 25px;
+    height: auto;
+}

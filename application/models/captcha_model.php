@@ -7,19 +7,19 @@
  */
 class Captcha_model extends  CI_Model{
 
-    function createCaptcha(){
+    function generateCaptcha(){
         $abc = array('1','2','3',
             '4','5','6',
             '7','8','9',
-            '0','a','b',
-            'c','d','e',
-            'f','g','h',
-            'i','j','k',
-            'l','m','n',
-            'o','p','q',
-            'r','s','t',
-            'u','v','w',
-            'x','y','z',
+            '0','A','B',
+            'C','D','E',
+            'F','G','H',
+            'I','J','K',
+            'L','M','N',
+            'O','P','Q',
+            'R','S','T',
+            'U','V','W',
+            'X','Y','Z',
             '!','$','%'
         );
         $word = '';
@@ -37,25 +37,26 @@ class Captcha_model extends  CI_Model{
             'img_width'  => '150',
             'img_height' => '50',
             'expiration' => '300',
-            'time'       => time()
         );
 
-        $expire = $captcha['time'] + $captcha['expiration'];
+        /*  $expire = $captcha['time'] + $captcha['expiration'];
 
-        $this ->db ->where('time < ', $expire);
-        $this->db->delete('captcha');
 
-        $value = array(
-            'time'      => $captcha['time'],
-            'ip_address'=> $this->input->ip_address(),
-            'word'      => $captcha['word']
-        );
+     /* $this ->db ->where('time < ', $expire);
+         $this->db->delete('captcha');*/
 
-        $this->db->insert('captcha', $value);
+        /* $value = array(
+           'time'      => $captcha['time'],
+           'ip_address'=> $this->input->ip_address(),
+           'word'      => $captcha['word']
+       );
 
+      /* $->db->insert('captcha', $value);
+       $img = create_captcha($captcha);
+      return $data['image'] = $img['image'];*/
         $img = create_captcha($captcha);
 
-       return $data['image'] = $img['image'];
+       return $img;
     }
 
     /*public function addTable(){

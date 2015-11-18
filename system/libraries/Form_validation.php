@@ -1385,7 +1385,7 @@ class CI_Form_validation {
      * @param	field
      * @return  bool
      */
-    public function  match_captcha($str, $field, $expiration = 300){
+    /*public function  match_captcha($str, $field, $expiration = 300){
 
         list($table, $field) = explode('.', $field);
         $expire = time() - $expiration;
@@ -1400,7 +1400,7 @@ class CI_Form_validation {
         else{
             return true;
         }
-    }
+    }*/
 
 }
 // END Form Validation Class

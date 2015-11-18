@@ -29,14 +29,16 @@ CREATE TABLE IF NOT EXISTS `captcha` (
   `time` int(10) unsigned NOT NULL,
   `ip_address` varchar(16) NOT NULL,
   `word` varchar(10) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=latin1;
 
 --
 -- Схема на данните от таблица `captcha`
 --
 
 INSERT INTO `captcha` (`id`, `time`, `ip_address`, `word`) VALUES
-(102, 1447451343, '::1', 'pevpk');
+(108, 1447686407, '::1', 'jngvg'),
+(109, 1447686570, '::1', 'jqtok'),
+(110, 1447686648, '::1', 'fmf53');
 
 --
 -- Indexes for dumped tables
@@ -56,5 +58,5 @@ ALTER TABLE `captcha`
 -- AUTO_INCREMENT for table `captcha`
 --
 ALTER TABLE `captcha`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=103;SET FOREIGN_KEY_CHECKS=1;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=111;SET FOREIGN_KEY_CHECKS=1;
 COMMIT;

@@ -47,7 +47,7 @@ if ( ! function_exists('force_download'))
 			return FALSE;
 		}
 
-		// Try to determine if the filename includes a file extension.
+		// Try to determine if the filename inc a file extension.
 		// We need it in order to set the MIME type
 		if (FALSE === strpos($filename, '.'))
 		{
