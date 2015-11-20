@@ -13,12 +13,15 @@ class Edit_Post extends  CI_Controller{
        $this->load->model('post_model');
     }
 
-    public function index(){
+    public function index($id=0){
         $data['title'] = 'New';
         $data['heading'] = 'New Post';
 
-        $data['rows'] = $this->post_model->getAll();
+        //$data['rows'] = $this->post_model->getAll();
 
+        if ((int)$id > 0){
+            $data['post'] = $this->post_model->getById((int)$id);
+        }
         $this->load->view('inc/header',$data);
         $this->load->view('edit_view',$data);
         //$this->load->view('edit_view');
@@ -81,37 +84,34 @@ class Edit_Post extends  CI_Controller{
 
     public function create(){
 
-
-       $title = $this->input->post('title');
-        $body = $this->input->post('body');
-        $author = $this->input->post('author');
-        $date = $this->input->post('date');
-       if( $picture = $this->do_upload()){
-           $path = APPPATH."../images/".$picture;
-           $this->resize($path,$picture);
-       }
-
-        $this->load->model('post_model');
-        $this->post_model->createPost($title, $body, $author, $date, $picture);
-    }
-    public function update(){
-
-        $this->load->view('inc/header');
-        $this->load->view('edit_view', $data);
-        $this->load->view('inc/footer');
-
-        $id =  $this->uri->segment(3);
+        $id = (int)$this->input->post('id');
         $title = $this->input->post('title');
         $body = $this->input->post('body');
         $author = $this->input->post('author');
         $date = $this->input->post('date');
-        $picture = $this->input->post('picture');
-        $data['title'] = 'Update Post';
+        if( $picture = $this->do_upload()) {
+            $path = APPPATH . "../images/";
+            $this->resize( $path, $picture );
+        }
 
-        $data['post'] = $this->post_model->updatePost($id,$title, $body, $author, $date, $picture);
+        $this->load->model('post_model');
 
-
+        if ($id > 0){
+            $this->post_model->updatePost($id, $title, $body, $author, $date, $picture );
+        }else {
+            $this->post_model->createPost( $title, $body, $author, $date, $picture );
+        }
     }
+
+
+    /*public function update(){
+        $id =  $this->uri->segment(3);
+
+
+        $this->load->view('inc/header');
+        $this->load->view('edit_view', $data);
+        $this->load->view('inc/footer');
+    }*/
     public function delete(){
 
         $id = $this->uri->segment(3);
@@ -120,14 +120,6 @@ class Edit_Post extends  CI_Controller{
         redirect('edit_post/getList');
     }
     public function  do_upload(){
-
-       /* $config_image = array(
-            'allowed_types' => 'jpg|jpeg|png|gif',
-            'max_size'      => 1024,
-            'tmp_name'      =>$_FILES["pic"],
-            'pic_name'      =>uniqid(rand()),
-             'path'          =>  APPPATH."../images/",
-        );*/
 
         $type = explode('.', $_FILES["pic"]["name"]);
         $type = $type[count($type) - 1];
@@ -144,27 +136,14 @@ class Edit_Post extends  CI_Controller{
     }
 
     public function resize($path, $pic_name){
-         $config_image = array(
-            'allowed_types' => 'jpg|jpeg|png|gif',
-            'max_size'      => 1024,
-            'tmp_name'      =>$_FILES["pic"],
-            'pic_name'      =>uniqid(rand()),
-             'path'          =>  APPPATH."../images/",
-        );
-        $this->load->library('upload',$config_image);
-
-        if($this->upload->do_upload()){
-            $data = array('upload_data' =>$this->upload->data());
-            print_r($data);
-        }
         $config = array(
             'image_library' => 'gd2',
-            'source_image'  => $path,
+            'source_image'  => $path.$pic_name,
             'create_thumb'  => TRUE,
             'maintain_ratio'=> TRUE,
             'width'         => 250,
             'height'        => 250,
-            'new_image'     =>'./images/thumb/'.$pic_name
+            'new_image'     =>$path.'thumb_'.$pic_name
         );
         $this->load->library('image_lib', $config);
         $this->image_lib->resize();

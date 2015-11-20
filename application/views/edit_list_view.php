@@ -24,7 +24,7 @@
                 <td><?php echo anchor('blog/read/'.$row->id, $row->title); ?></td>
                 <td><?php echo $row->author;?></td>
                 <td><?php echo $row->date;?></td>
-                <td><?php echo anchor('edit_post/update/'.$row->id,'Edit');?></td>
+                <td><?php echo anchor('edit_post/index/'.$row->id,'Edit');?></td>
                 <td><?php echo anchor('edit_post/delete/'.$row->id,'Delete');?></td>
             </tr>
         <?php }?>
