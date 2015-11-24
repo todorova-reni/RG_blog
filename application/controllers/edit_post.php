@@ -10,14 +10,22 @@ defined('BASEPATH') OR exit('u no here');
 class Edit_Post extends  CI_Controller{
     public function  __construct(){
         parent::__construct();
-       $this->load->model('post_model');
+       $this->load->model('post_model'); $this->ckeditor->basePath = base_url().'assets/js/ckeditor/';
+        $this->ckeditor->config['toolbar'] = array(
+            array( 'Source', '-', 'Bold', 'Italic', 'Underline','FontSize', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList' )
+        );
+        $this->ckeditor->config['language'] = 'en';
+        $this->ckeditor->config['width'] = '550px';
+        $this->ckeditor->config['height'] = '300px';
+        $this->ckfinder->SetupCKEditor($this->ckeditor,'../../assets/js/ckfinder/');
     }
 
     public function index($id=0){
+
+
+
         $data['title'] = 'New';
         $data['heading'] = 'New Post';
-
-        //$data['rows'] = $this->post_model->getAll();
 
         if ((int)$id > 0){
             $data['post'] = $this->post_model->getById((int)$id);
@@ -89,10 +97,7 @@ class Edit_Post extends  CI_Controller{
         $body = $this->input->post('body');
         $author = $this->input->post('author');
         $date = $this->input->post('date');
-        if( $picture = $this->do_upload()) {
-            $path = APPPATH . "../images/";
-            $this->resize( $path, $picture );
-        }
+        $picture = $this->do_upload();
 
         $this->load->model('post_model');
 
@@ -133,6 +138,7 @@ class Edit_Post extends  CI_Controller{
         return "default.jpg";
         }
     $this->upload->do_upload($_FILES["pic"]["name"]);
+    $this->resize($path,$pic_name);
     }
 
     public function resize($path, $pic_name){

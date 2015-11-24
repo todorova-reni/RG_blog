@@ -53,5 +53,4 @@ class Post_model extends  CI_Model{
         return $this->db->delete('post');
     }
 
-
 }

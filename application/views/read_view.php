@@ -15,4 +15,6 @@
         </div>
     <img  class="thumb col-md-12" src="<?php echo base_url();?>images/<?php echo $post->picture;?>">
     <p><?php echo $post->body;?></p>
+    <span class="share"><a href="http://www.facebook.com/share.php?u=http://www.blog-reni.dev/index.php/blog/read/<?php echo $post->id;?>&title=$post->title" target="_blank"><img src="<?php echo base_url()."images/icons/fb_share.png";?>" alt="Facebook" /></a></span>
+    <span class="share"><a href="http://twitter.com/home?status=$post->title+http://www.blog-reni.dev/index.php/blog/read/<?php echo $post->id;?>" target="_blank"><img src="<?php echo base_url()."images/icons/tw_share.png";?>" alt="Facebook" /></a></span>
 </div>

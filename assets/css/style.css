@@ -162,7 +162,7 @@ div.success{
     font: oblique 17px Helvetica;
 }
 .edit .table th, .edit .table td{
-    border:none;
+    border: none;
 }
 .edit td{
     text-align: left;
@@ -174,12 +174,18 @@ div.success{
 }
 .edit form input, .edit form textarea{
     width: 80%;
-
+}
+.edit form textarea{
+    height: 150px;
 }
 .edit form .button{
     text-align: center;
     width: 200px;
     margin:0 auto;
+}
+.edit form img{
+    width: 250px;
+    height: auto;
 }
 
 /****************** SINGLE POST ******************/
@@ -220,6 +226,11 @@ p{
 .title a{
     color: #58c93a;
     text-decoration: none;
+}
+.share img{
+    width: 150px;
+    height: 40px;
+
 }
 .pagination{
     margin: 0 auto;
