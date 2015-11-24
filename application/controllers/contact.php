@@ -6,12 +6,18 @@ session_start();
  * Date: 10.11.2015 г.
  * Time: 14:58 ч.
  */
-defined('BASEPATH') OR exit('u no here');
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
 class Contact extends  CI_Controller{
-    public function  __construct(){
+    private $logged_in;
+    public  function  __construct(){
         parent::__construct();
+        if($this->session->userdata('logged_in')){
+            $this->logged_in = true;
+        }else{
+            $this->logged_in = false;
+        }
         $this->load->model('captcha_model');
         $this->load->model('data_model');
     }
@@ -19,12 +25,13 @@ class Contact extends  CI_Controller{
     public function  index(){
         $data['title'] = 'Contact';
         $data['heading'] = 'Contact Form';
+        $data['logged_in'] =$this->logged_in;
         $captcha = $this->captcha_model->generateCaptcha();
         $_SESSION['captcha'] = $captcha['word'];
        // $this->session->set_userdata('captcha_word', $captcha['word']);
 
        // $data['rows'] = $this->data_model->getAll();
-        $this->load->view('inc/header',$data);
+        $this->load->view('inc/header', $data);
         $this->load->view('contact_view', $captcha);
         $this->load->view('inc/footer');
     }
@@ -47,7 +54,7 @@ class Contact extends  CI_Controller{
             array(
                 'field' => 'email',
                 'label' => 'Email',
-                'rules' => 'trim|strip_tags|xss_clean|required|min_length[10]|max_length[30]|valid_email'
+                'rules' => 'trim|strip_tags|xss_clean|required|min_length[5]|max_length[30]|valid_email'
             ),
             array(
                 'field' => 'mssg',
@@ -65,16 +72,19 @@ class Contact extends  CI_Controller{
 
         if ($this->form_validation->run() === FALSE) {
             $captcha = $this->captcha_model->generateCaptcha();
-            $this->load->view('inc/header');
+            $data['title'] = 'Contact';
+            $data['heading'] = 'Contact Form';
+            $this->load->view('inc/header',$data);
             $this->load->view('contact_view', $captcha);
             $this->load->view('inc/footer');
-            $this->load->view('form_error');
             $_SESSION['captcha'] = $captcha['word'];
         }
         else {
             $_SESSION['captcha'] = '';
             $captcha = $this->captcha_model->generateCaptcha();
-            $this->load->view('inc/header');
+            $data['title'] = 'Contact';
+            $data['heading'] = 'Contact Form';
+            $this->load->view('inc/header',$data);
             $this->load->view('form_success');
             $this->load->view('contact_view', $captcha);
             $this->load->view('inc/footer');

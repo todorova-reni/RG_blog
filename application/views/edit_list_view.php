@@ -9,7 +9,7 @@
 <div class="edit col-md-12">
     <h2 class="page-header"><?=$heading?></h2>
 
-    <table class=" table table-striped">
+    <table class="table table-striped">
         <tr>
             <th>№</th>
             <th>Post</th>

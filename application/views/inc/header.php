@@ -23,9 +23,15 @@
     <header>
         <nav>
             <ul class=" menu col-md-8">
-                <li><a href="<?php echo site_url();?>/contact">Contact</a></li>
+                <?php if($logged_in == false){?>
+                <li><a href="<?php echo site_url();?>/login">Login</a></li>
+                <?php } else {?>
+                <li><a href="<?php echo site_url();?>/login/logout">Logout</a></li>
                 <li><a href="<?php echo site_url();?>/edit_post">Edit</a></li>
+                <?php } ?>
+                <li><a href="<?php echo site_url();?>/contact">Contact</a></li>
                 <li><a href="<?php echo site_url();?>/blog">Blog</a></li>
+                <li><a href="<?php echo site_url();?>/welcome">Home</a></li>
             </ul>
         </nav>
     </header>

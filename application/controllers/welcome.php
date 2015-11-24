@@ -2,26 +2,22 @@
 
 class Welcome extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+    private $logged_in;
+    public function  __construct(){
+        parent::__construct();
+        if($this->session->userdata('logged_in')){
+            $this->logged_in = true;
+        }else{
+            $this->logged_in = false;
+        }
+    }
+
 	public function index()
-	{
-        $this->load->view('header_view');
-        $this->load->view('home');
-        $this->load->view('footer_view');
+	{   $data['title'] = 'Home';
+        $data['logged_in'] =$this->logged_in;
+        $this->load->view('inc/header', $data);
+        $this->load->view('home', array('logged_in' =>$this->logged_in));
+        $this->load->view('inc/footer');
 	}
 
 

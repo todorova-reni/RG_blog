@@ -7,38 +7,45 @@
  */
 $message ='';
 ?>
-<h2><?php echo $heading;?></h2>
-<div class="msg error">
-    <?php echo validation_errors(); ?>
-</div>
 
+<div class="contact col-md-12">
+    <h2 class="page-header">Contact us</h2>
+    <div class="msg error">
+        <?php echo validation_errors(); ?>
+    </div>
 
-            <?php echo form_open('contact/submission');?>
-                <table class="contact">
-                    <tr>
+    <?php echo form_open('contact/submission');?>
+    <table class="table custom">
+     <tr>
                         <th><label for="name">Name: </label></th>
-                        <td><input type="text" name="name" id="name" maxlength="30" required placeholder="Your name here..."></td>
+                        <td><input type="text" name="name" id="name" maxlength="30" autofocus="" required value="<?php echo set_value('name');?>" placeholder="Your name here..." ></td>
                     </tr>
                     <tr>
                         <th><label for="tel">Phone: </label></th>
-                        <td><input type="tel" name="tel" id="tel" size="10" required placeholder="Your phone number..."></td>
+                        <td><input type="tel" name="tel" id="tel" size="10" required  value="<?php echo set_value('tel');?>" placeholder="Your phone number..."></td>
                     </tr>
                     <tr>
                         <th><label for="email">Email: </label></th>
-                        <td><input type="email" name="email" id="email" maxlength="30" required placeholder="Your Email address..."></td>
+                        <td><input type="email" name="email" id="email" maxlength="30" required value="<?php echo set_value('email');?>" placeholder="Your Email address..."></td>
                     </tr>
                     <tr>
                         <th><label for="mssg">Message: </label></th>
-                        <td><textarea name="mssg" id="mssg" placeholder="Type your message here..." required></textarea></td>
+                        <td><textarea name="mssg" id="mssg" placeholder="Type your message here..." required><?php echo set_value('mssg');?></textarea></td>
                     </tr>
-                    <tr class="cap">
-                        <th><?php echo $image.'<br>'; ?><label class="cap_lb" id="captcha" for="captcha">Enter the text from the picture above</label></th>
-                        <td><input class="cap" type="text" name="captcha" maxlength="5" ></td>
+                    <tr>
+                        <th><label class="cap_lb" id="captcha" for="captcha"><?php echo $image.'<br>';?></label></th>
+                        <td><input class="cap" type="text" name="captcha" maxlength="5" placeholder="Text from the image here..."></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td> <input class="button" type="submit" value="Send">
+                            <input class="button" type="reset" value="Cancel">
+                        </td>
                     </tr>
                 </table>
-            <input class="button" type="submit" value="Send">
-            <input class="button" type="reset" value="Cancel">
+
             <?php echo form_close();?>
+    </div>
 
            <!-- <div class="list">
 

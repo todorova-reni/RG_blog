@@ -5,17 +5,25 @@
  * Date: 17.11.2015 г.
  * Time: 14:50 ч.
  */
-defined('BASEPATH') OR exit('u no here');
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Edit_Post extends  CI_Controller{
-    public function  __construct(){
+
+    private $logged_in;
+    public  function  __construct(){
         parent::__construct();
+        if($this->session->userdata('logged_in')){
+            $this->logged_in = true;
+        }else{
+            $this->logged_in = false;
+        }
+
        $this->load->model('post_model'); $this->ckeditor->basePath = base_url().'assets/js/ckeditor/';
         $this->ckeditor->config['toolbar'] = array(
             array( 'Source', '-', 'Bold', 'Italic', 'Underline','FontSize', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList' )
         );
         $this->ckeditor->config['language'] = 'en';
-        $this->ckeditor->config['width'] = '550px';
+        $this->ckeditor->config['width'] = '625px';
         $this->ckeditor->config['height'] = '300px';
         $this->ckfinder->SetupCKEditor($this->ckeditor,'../../assets/js/ckfinder/');
     }
@@ -26,7 +34,7 @@ class Edit_Post extends  CI_Controller{
 
         $data['title'] = 'New';
         $data['heading'] = 'New Post';
-
+        $data['logged_in'] =$this->logged_in;
         if ((int)$id > 0){
             $data['post'] = $this->post_model->getById((int)$id);
         }
@@ -40,7 +48,7 @@ class Edit_Post extends  CI_Controller{
         $data['title'] = 'List';
         $data['heading'] = 'List View';
         $data['rows'] = $this->post_model->getAll();
-
+        $data['logged_in'] =$this->logged_in;
         $this->load->view('inc/header',$data);
         $this->load->view('edit_list_view',$data);
         $this->load->view('inc/footer');

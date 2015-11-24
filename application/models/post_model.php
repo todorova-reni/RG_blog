@@ -21,10 +21,10 @@ class Post_model extends  CI_Model{
     public function createPost($title, $body, $author, $date, $picture){
 
         $data = array(
-            'title' => $title,
-            'body' => $body,
-            'author' => $author,
-            'date' => $date,
+            'title'   => $title,
+            'body'    => $body,
+            'author'  => $author,
+            'date'    => $date,
             'picture' => $picture
         );
         return $this->db->insert('post', $data);
@@ -38,10 +38,10 @@ class Post_model extends  CI_Model{
     public function  updatePost($id,$title, $body, $author, $date, $picture){
 
         $data = array(
-            'title' => $title,
-            'body' => $body,
-            'author' => $author,
-            'date' => $date,
+            'title'   => $title,
+            'body'    => $body,
+            'author'  => $author,
+            'date'    => $date,
             'picture' => $picture
         );
         $this->db->where('id',$id);

@@ -29,7 +29,25 @@ $config['base_url'] = '';
 |
 */
 $config['index_page'] = 'index.php';
+/*
+|--------------------------------------------------------------------------
+| Password Salt
+|--------------------------------------------------------------------------
+|
+| This can`t be changed of deleted of else no way to verify user`s password
+|
+*/
+$config['salt'] = '~Hf@%&';
 
+/*
+|--------------------------------------------------------------------------
+| Admin email
+|--------------------------------------------------------------------------
+|
+| This can`t be changed of deleted of else no way to verify user`s password
+|
+*/
+$config['bot_email'] = 'admin@blog-reni.dev';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
@@ -247,7 +265,7 @@ $config['encryption_key'] = 'LuJgvNKHF15GCB9ThE45Bkl723MLVGFD';
 |
 */
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 7200;
+$config['sess_expiration']		= 300;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;

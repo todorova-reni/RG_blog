@@ -18,10 +18,10 @@ echo unix_to_human($now, TRUE, 'eu'); // Euro time with seconds*/
 
     <?php echo form_open_multipart('edit_post/submission') ;?>
     <input type="hidden" name="id" value="<?php if (isset($post)) echo $post->id; else echo 0;?>" />
-    <table class=" table">
+    <table class="table custom">
         <tr>
             <th><label for="title">Title:</label></th>
-            <td><input type="text" name="title" id="title" placeholder="Post title here..." required value="<?php if (isset($post)) {echo $post->title;} else echo set_value('title'); ?>"></td>
+            <td><input type="text" name="title" id="title" placeholder="Post title here..." autofocus="" required value="<?php if (isset($post)) {echo $post->title;} else echo set_value('title'); ?>"></td>
         </tr>
         <tr>
             <th><label for="author">Author:</label></th>
@@ -44,13 +44,9 @@ echo unix_to_human($now, TRUE, 'eu'); // Euro time with seconds*/
         <tr>
            <th></th>
             <td><input class="button" type="submit" value="Save">
-                <input class="button" type="reset" value="Cancel"></td>
+                <input class="button" type="reset" value="Cancel">
+            </td>
         </tr>
-
-
-
     </table>
-
     <?php echo form_close();?>
-
 </div>

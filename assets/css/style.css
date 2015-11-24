@@ -65,52 +65,40 @@ h2{
     margin-bottom: 10px;
 }
 form{
-    width: 500px;
-    margin: 0 auto;
-    text-align: center;
+    width: 100%;
+    padding: 20px;
+    font: oblique 17px Helvetica;
+}
+.custom, .custom tr, .custom tr th, .custom tr td{
+    border: 1px solid transparent !important;
+}
+.custom tr{
+    width: 100%;
     padding: 10px;
 }
-.contact{
+.custom tr th{
+    width: 20%;
+    text-align: right;
+    padding: 10px;
+}
+.custom tr td{
     width: 80%;
-    margin:0 auto;
     text-align: left;
 }
-.contact th, .contact td{
-    display: block;
+form label{
+    padding: 5px;
+}
+form .custom label,form .custom input, form .custom textarea{
     width: 100%;
     height: 30px;
 }
-.contact tr{
-    display: block;
+form .custom textarea{
+    height: 150px;
 }
-.cap img{
-    margin-top: 25px;
-}
-.cap td{
-    height: 10px;
-}
-.cap th{
-    height: 100px;
-}
-.contact tr label{
-    font-size: 18px;
-    display: block;
-}
-.cap_lb{
-    padding: 5px;
-    font-size: 13px;
-}
-.contact tr input{
-    width: 100%
-}
-.contact tr textarea{
-    width: 100%;
-}
-form .button {
-    width: 165px;
+.custom .button {
+    width: 200px;
     height: 40px;
-    margin-top: 40px;
-    margin-left: 25px;
+    margin: 0 auto;
     text-align: center;
     font: bold 18px Helvetica;
     background-color: #444444;
@@ -121,20 +109,28 @@ form .button {
 form .button:hover{
     background-color: #292929;
 }
+.cap_lb{
+    padding: 0;
+    height: 40px
+}
+.cap_lb img{
+    width: 115px !important;
+    height: 40px !important;
+}
 
 /****************** ALERTS***********/
-
 div.msg{
-    width: 400px;
+    width: 600px;
     margin: 0 auto;
+    text-align: center;
     padding: 10px 15px;
-    font: oblique 18px Arial;
+    font: normal 17px Arial;
+    font-family: Consolas, "Liberation Mono", Courier, monospace
 }
 div.error{
     color: red;
 }
 div.success{
-    padding: 20px;
     color: #58c93a;
 }
 /************ EDIT POST ***********/
@@ -153,34 +149,7 @@ div.success{
     text-decoration: none;
     padding: 10px;
 }
-.edit{
-    margin:0 auto;
-}
-.edit form{
-    width: 100%;
-    padding: 20px;
-    font: oblique 17px Helvetica;
-}
-.edit .table th, .edit .table td{
-    border: none;
-}
-.edit td{
-    text-align: left;
-}
-.edit form label{
-    padding: 5px;
-    text-align: right;
-    width: 100%;
-}
-.edit form input, .edit form textarea{
-    width: 80%;
-}
-.edit form textarea{
-    height: 150px;
-}
-.edit form .button{
-    text-align: center;
-    width: 200px;
+.edit, .contact{
     margin:0 auto;
 }
 .edit form img{
@@ -250,4 +219,55 @@ p{
 .table img{
     width: 25px;
     height: auto;
+}
+/************LOGIN ************/
+
+.form-signin {
+    max-width: 380px;
+    padding: 15px 35px 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-style: normal;
+}
+.form-signin-heading{
+    text-align: left;
+}
+.form-signin-heading,.checkbox {
+    margin-bottom: 30px;
+}
+.checkbox {
+    font-weight: normal;
+}
+.form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+}
+input[type="checkbox"] {
+
+    position: relative !important;
+    margin-left: 0 !important;
+}
+
+input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+input[type="password"]{
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.signup input[type="text"], .signup input[type="email"]{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-signin button{
+    margin-bottom: 15px;
 }

@@ -5,7 +5,7 @@
  * Date: 23.11.2015 г.
  * Time: 19:32 ч.
  */
-
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Ckeditor extends CI_Controller {
 
     // extends CI_Controller for CI 2.x users
