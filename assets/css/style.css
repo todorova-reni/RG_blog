@@ -271,3 +271,12 @@ input[type="password"]{
 .form-signin button{
     margin-bottom: 15px;
 }
+.col-md-12 img{
+    padding: 15px 0;
+}
+h3{
+    text-align: center;
+}
+.user{
+    color: #00CC00;
+}

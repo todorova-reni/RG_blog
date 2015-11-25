@@ -75,13 +75,18 @@ class Login extends  CI_Controller{
     public function addUser(){
         $username = $this->input->post('username');
         $email = $this->input->post('email');
-        $password = $this->input->post('password');
-        //$password = sha1($this->config->item('salt') . $this->input->post('password'));
-
-        $this->user_model->createUser($username, $password, $email);
+        //$password = $this->input->post('password');
+        $password = sha1($this->config->item('salt') . $this->input->post('password'));
+        $verification_code = random_string('alnum',20);
+        $this->send_verf_email($email, $verification_code);
+        $this->user_model->createUser($username, $password, $email, $verification_code);
     }
 
     public function login_user(){
+        $remember = $this->input->post('remember');
+        $username = $this->input->post('username');
+        $passowrd = $this->input->post('password');
+
         $FormRules = array(
             array(
                 'field' => 'username',
@@ -110,9 +115,16 @@ class Login extends  CI_Controller{
             $result = $this->user_model->authentication();
            switch($result){
                case 'logged_in':
+                   if($remember != NULL ){
+                       echo 'remember';
+                       set_cookie('username', $username, time(86400 * 30), "/");
+                       set_cookie('password', $passowrd, time(86400 * 30), "/");
+
+                   }
                    redirect('/', location);
                    break;
                case 'incorrect_password':
+                   echo 'incorrect_password';
                    $data['title'] = 'Login';
                    $data['heading'] = 'Please login';
                    $data['logged_in'] =$this->logged_in;
@@ -121,6 +133,7 @@ class Login extends  CI_Controller{
                    $this->load->view('inc/footer');
                    break;
                case 'not_activated':
+                   echo 'not_activated';
                    $data['title'] = 'Login';
                    $data['heading'] = 'Please login';
                    $data['logged_in'] =$this->logged_in;
@@ -129,6 +142,7 @@ class Login extends  CI_Controller{
                    $this->load->view('inc/footer');
                    break;
                case 'user_not_found':
+                   echo 'user_not_found';
                    $data['title'] = 'Login';
                    $data['heading'] = 'Please login';
                    $data['logged_in'] =$this->logged_in;
@@ -140,20 +154,30 @@ class Login extends  CI_Controller{
         }
     }
     public function logout(){
-        $this->session->userdata('');
+        delete_cookie('username');
+        delete_cookie('password');
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('id');
+        $this->session->unset_userdata('email');
+
         $data['title'] = 'Logout';
         $data['heading'] = 'Thank you for your visit. See you next time.';
         $data['logged_in'] ='';
+        
         $this->load->view('inc/header', $data);
         $this->load->view('logout_view');
         $this->load->view('inc/footer');
 
     }
 
-    public function send_verf_email(){
+    public function send_verf_email($email, $verification_code){
 
 
-        $email = $this->input->post('email');
+        $email_msg = "Dear User,
+<p-->
+Please click on below URL or paste into your browser to verify your Email Address.<p></p>";
+        $email_msg .= "http://www.blog-reni.dev/index.php/login/verify/" .$verification_code;
+        $email_msg .= "<p>Thanks, Support Team of blog-reni.dev</p>";
 
         $config = Array(
             'mail_type'=>'html',
@@ -168,12 +192,26 @@ class Login extends  CI_Controller{
             'wordwrap' => TRUE
         );
 
-
         $this->load->library('email', $config);
-        $this->email->from($this->config->item('bot_email'));
+        $this->email->from($this->config->item('bot_email'),'Support Team');
         $this->email->to($email);
-        $this->email->subject('Verification Email');
-        $this->email->message('Name: ');
+        $this->email->subject('Email Verification');
+        $this->email->message($email_msg);
         $this->email->send();
     }
+
+    public function verify($verificationText=NULL){
+        $noOfRecords = $this->user_model->verifyEmailAddress($verificationText);
+        if($noOfRecords > 0){
+            redirect('login/');
+            $message = "Email Verified Successfully! Please login below.";
+            $this->load->view('form_success', $message);
+
+        }else{
+           $message = "Sorry! Unable to verify your email. Please try again";
+            $this->load->view('form_error', $message);
+            redirect('login/');
+        }
+    }
+
 }

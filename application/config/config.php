@@ -47,7 +47,7 @@ $config['salt'] = '~Hf@%&';
 | This can`t be changed of deleted of else no way to verify user`s password
 |
 */
-$config['bot_email'] = 'admin@blog-reni.dev';
+$config['bot_email'] = 'todorova.reni93@gmail.com';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL

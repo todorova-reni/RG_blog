@@ -13,6 +13,7 @@
 <body>
 
 <div class="msg success">
+    <?php echo $message; ?>
     Your form was submitted successfully!!!
 </div>
 

@@ -18,26 +18,30 @@ class User_model extends  CI_Model{
         }
     }
 
-    public function createUser($username, $password, $email){
+    public function createUser($username, $password, $email,$verification_code){
 
         $data = array(
             'username' => $username,
             'password' => $password,
             'email'    => $email,
+            'verification_code'    => $verification_code,
         );
         return $this->db->insert('user', $data);
     }
 
-    public function  deleteUser($id){
-        $this->db->where('id',$id);
-        return $this->db->delete('user');
+    public function verifyEmailAddress($verification_code){
+        $this->db->set('activated', 1)
+            ->where('verification_code', $verification_code)
+            ->update('user');
+        return $this->db->affected_rows();
     }
 
     public function authentication(){
 
         $username = $this->input->post('username');
-        $password = $this->input->post('password');
-        //$password = sha1($this->config->item('salt') . $this->input->post('password'));
+        //$password = $this->input->post('password');
+        $password = sha1($this->config->item('salt') . $this->input->post('password'));
+        $remember = $this->input->post('remember');
 
         $sql = "SELECT * FROM user WHERE username = '{$username}' LIMIT 1";
         $result = $this->db->query($sql);

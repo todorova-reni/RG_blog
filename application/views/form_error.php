@@ -14,6 +14,7 @@
 <body>
 
 <div class="msg error">
+    <?php echo $message; ?>
     <?php echo validation_errors(); ?>
 </div>
 

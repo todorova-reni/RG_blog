@@ -16,6 +16,7 @@ class Edit_Post extends  CI_Controller{
             $this->logged_in = true;
         }else{
             $this->logged_in = false;
+            redirect(site_url()."/login");
         }
 
        $this->load->model('post_model'); $this->ckeditor->basePath = base_url().'assets/js/ckeditor/';

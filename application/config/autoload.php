@@ -64,7 +64,7 @@ $autoload['libraries'] = array('form_validation','database','session','image_lib
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('form','url','captcha','html','date','file','text','ckeditor');
+$autoload['helper'] = array('form','url','captcha','html','date','file','text','ckeditor','cookie');
 
 
 /*
