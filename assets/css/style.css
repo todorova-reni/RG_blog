@@ -28,8 +28,11 @@ header .menu{
     font-size: 20px;
     margin: 0 auto;
 }
+header ul{
+    font-size: 20px;
+}
 header ul li{
-    float: right;
+    float: right ;
     display: inline-block;
     list-style-type: none;
     border: 1px solid #1d1d1d;
@@ -41,15 +44,18 @@ header ul li:hover{
 
 }
 header ul li a:hover{
-    color: #58c93a;
-    display: block;
-    text-decoration: none;
+    color: #58c93a !important;
+    display: block !important;
+    text-decoration: none !important;
 }
 header ul li a{
-    padding: 35px 40px;
-    text-decoration: none;
-    display: block;
-    color: #ffffff;
+    padding: 35px 30px !important;
+    text-decoration: none !important;
+    display: block !important;
+    color: #ffffff !important;
+}
+header .col-md-8{
+    padding-right: 0;
 }
 /******************** FOOTER **************************/
 footer{
@@ -186,20 +192,52 @@ p a:hover, .title a:hover{
 p{
     text-align: justify;
 }
-.thumb{
-    padding: 10px;
-}
 .title{
+    text-align: left;
     padding: 10px 0;
 }
 .title a{
     color: #58c93a;
     text-decoration: none;
 }
+.row img{
+    padding-right: 10px !important;
+}
 .share img{
     width: 150px;
-    height: 40px;
-
+    float: right;
+}
+.container hr{
+    clear: both;
+    border-color: lightgreen;
+}
+.comment table, .comment table tr{
+    width: 100%;
+}
+.comment table th{
+    width: 90%;
+}
+.comment table td{
+    width: 10%;
+}
+.comment input{
+    float: left;
+}
+.comment textarea{
+    height:80px !important;
+    width: 100%;
+    resize: none;
+}
+.comment .button{
+    width: 140px;
+    margin-left: 20px;
+}
+.comments .row{
+    padding: 10px;
+}
+.comments .row p{
+    padding: 0 10px;
+    text-align: justify;
 }
 .pagination{
     margin: 0 auto;
@@ -270,9 +308,6 @@ input[type="password"]{
 
 .form-signin button{
     margin-bottom: 15px;
-}
-.col-md-12 img{
-    padding: 15px 0;
 }
 h3{
     text-align: center;

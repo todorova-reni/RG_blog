@@ -36,6 +36,20 @@ class User_model extends  CI_Model{
         return $this->db->affected_rows();
     }
 
+    public function  getByUsernameAndPass($username, $password){
+        $this->db->select('username, password, activated');
+        $this->db->from('user');
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
+        $query = $this->db->get();
+        $row = $query->row();
+
+        if($query->num_rows() ==1 && $row->activated){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function authentication(){
 
         $username = $this->input->post('username');

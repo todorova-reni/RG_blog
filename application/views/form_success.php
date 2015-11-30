@@ -5,6 +5,7 @@
  * Date: 12.11.2015 г.
  * Time: 21:23 ч.
  */
+$message = '';
 ?>
 <html>
 <head>
@@ -14,7 +15,6 @@
 
 <div class="msg success">
     <?php echo $message; ?>
-    Your form was submitted successfully!!!
 </div>
 
 

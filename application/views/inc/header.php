@@ -21,18 +21,29 @@
 <body>
 <div class="container-fluid wrapper col-md-12 ">
     <header>
-        <nav>
-            <ul class=" menu col-md-8">
-                <?php if($logged_in == false){?>
-                <li><a href="<?php echo site_url();?>/login">Login</a></li>
-                <?php } else {?>
-                <li><a href="<?php echo site_url();?>/login/logout">Logout</a></li>
-                <li><a href="<?php echo site_url();?>/edit_post">Edit</a></li>
-                <?php } ?>
-                <li><a href="<?php echo site_url();?>/contact">Contact</a></li>
-                <li><a href="<?php echo site_url();?>/blog">Blog</a></li>
-                <li><a href="<?php echo site_url();?>/welcome">Home</a></li>
-            </ul>
+
+        <nav role="navigation" class=" menu navbar navbar-default col-md-8">
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class=" nav navbar-nav navbar-right">
+                    <li><a href="<?php echo site_url();?>/welcome">Home</a></li>
+                    <li><a href="<?php echo site_url();?>/blog">Blog</a></li>
+                    <li><a href="<?php echo site_url();?>/contact">Contact</a></li>
+                    <?php if($logged_in == false){?>
+                        <li><a href="<?php echo site_url();?>/login">Login</a></li>
+                    <?php } else {?>
+                        <li><a href="<?php echo site_url();?>/edit_post">Add Post</a></li>
+                        <li><a href="<?php echo site_url();?>/login/logout">Logout</a></li>
+                    <?php } ?>
+                </ul>
+            </div>
+
         </nav>
     </header>
     <div class="red content container col-md-8 ">

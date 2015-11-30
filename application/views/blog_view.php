@@ -30,5 +30,5 @@
     <hr>
 <?php }?>
 
-    <div class="pagination"><?php echo $this->pagination->create_links();?></div>
+    <div class="col-md-12 pagination"><?php echo $this->pagination->create_links();?></div>
 </div>

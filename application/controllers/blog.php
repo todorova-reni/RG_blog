@@ -17,6 +17,7 @@ class  Blog extends  CI_Controller{
             $this->logged_in = false;
         }
         $this->load->model('post_model');
+        $this->load->model('comment_model');
     }
 
     public function index(){
@@ -47,7 +48,7 @@ class  Blog extends  CI_Controller{
         $data['title'] = 'Single';
         $data['logged_in'] =$this->logged_in;
         $data['post'] = $this->post_model->getById($id);
-
+        $data['query'] = $this->db->get('comment', $this->comment_model->getByIdPost($id));
         $this->load->view('inc/header',$data);
         $this->load->view('read_view', $data);
         $this->load->view('inc/footer');

@@ -25,6 +25,11 @@ class Login extends  CI_Controller{
         $this->load->view('login_view');
         $this->load->view('inc/footer');
     }
+    /*
+     *-----------------------------------------------------------------
+     *                         REGISTRATION
+     *------------------------------------------------------------------
+     */
     public function signup(){
 
         $FormRules = array(
@@ -61,11 +66,12 @@ class Login extends  CI_Controller{
             $this->load->view('inc/footer');
         }
         else{
+            $message = 'Your registration is almost complete. We send you a verification email. Please follow the instructions';
             $data['title'] = 'Sign up';
             $data['heading'] = 'Create New Account';
             $data['logged_in'] =$this->logged_in;
             $this->load->view('inc/header', $data);
-            $this->load->view('form_success');
+            $this->load->view('form_success', $message);
             $this->load->view('signup_view');
             $this->load->view('inc/footer');
             $this->addUser();
@@ -82,96 +88,7 @@ class Login extends  CI_Controller{
         $this->user_model->createUser($username, $password, $email, $verification_code);
     }
 
-    public function login_user(){
-        $remember = $this->input->post('remember');
-        $username = $this->input->post('username');
-        $passowrd = $this->input->post('password');
-
-        $FormRules = array(
-            array(
-                'field' => 'username',
-                'label' => 'Username',
-                'rules' => 'trim|strip_tags|xss_clean|min_length[3]|max_length[30]|required'
-            ),
-            array(
-                'field' => 'password',
-                'label' => 'Password',
-                'rules' => 'trim|strip_tags|xss_clean|min_length[4]|max_length[20]|required'
-            )
-        );
-        $this->form_validation->set_rules($FormRules);
-
-        if($this->form_validation->run() === FALSE){
-            $data['title'] = 'Login';
-            $data['heading'] = 'Please login';
-            $data['logged_in'] =$this->logged_in;
-
-            $this->load->view('inc/header', $data);
-            $this->load->view('form_error');
-            $this->load->view('login_view');
-            $this->load->view('inc/footer');
-        }
-        else{
-            $result = $this->user_model->authentication();
-           switch($result){
-               case 'logged_in':
-                   if($remember != NULL ){
-                       echo 'remember';
-                       set_cookie('username', $username, time(86400 * 30), "/");
-                       set_cookie('password', $passowrd, time(86400 * 30), "/");
-
-                   }
-                   redirect('/', location);
-                   break;
-               case 'incorrect_password':
-                   echo 'incorrect_password';
-                   $data['title'] = 'Login';
-                   $data['heading'] = 'Please login';
-                   $data['logged_in'] =$this->logged_in;
-                   $this->load->view('inc/header', $data);
-                   $this->load->view('login_view');
-                   $this->load->view('inc/footer');
-                   break;
-               case 'not_activated':
-                   echo 'not_activated';
-                   $data['title'] = 'Login';
-                   $data['heading'] = 'Please login';
-                   $data['logged_in'] =$this->logged_in;
-                   $this->load->view('inc/header', $data);
-                   $this->load->view('login_view');
-                   $this->load->view('inc/footer');
-                   break;
-               case 'user_not_found':
-                   echo 'user_not_found';
-                   $data['title'] = 'Login';
-                   $data['heading'] = 'Please login';
-                   $data['logged_in'] =$this->logged_in;
-                   $this->load->view('inc/header', $data);
-                   $this->load->view('login_view');
-                   $this->load->view('inc/footer');
-                   break;
-           }
-        }
-    }
-    public function logout(){
-        delete_cookie('username');
-        delete_cookie('password');
-        $this->session->unset_userdata('username');
-        $this->session->unset_userdata('id');
-        $this->session->unset_userdata('email');
-
-        $data['title'] = 'Logout';
-        $data['heading'] = 'Thank you for your visit. See you next time.';
-        $data['logged_in'] ='';
-        
-        $this->load->view('inc/header', $data);
-        $this->load->view('logout_view');
-        $this->load->view('inc/footer');
-
-    }
-
     public function send_verf_email($email, $verification_code){
-
 
         $email_msg = "Dear User,
 <p-->
@@ -212,6 +129,80 @@ Please click on below URL or paste into your browser to verify your Email Addres
             $this->load->view('form_error', $message);
             redirect('login/');
         }
+    }
+
+
+    /*
+    *-----------------------------------------------------------------
+    *                         LOGIN
+    *------------------------------------------------------------------
+    */
+
+    public function login_user(){
+        $remember = $this->input->post('remember');
+
+        $FormRules = array(
+            array(
+                'field' => 'username',
+                'label' => 'Username',
+                'rules' => 'trim|strip_tags|xss_clean|required'
+            ),
+            array(
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'trim|strip_tags|xss_clean|required|callback_verifyUser'
+            )
+        );
+        $this->form_validation->set_rules($FormRules);
+
+        if($this->form_validation->run() === FALSE){
+            $data['title'] = 'Login';
+            $data['heading'] = 'Please login';
+            $data['logged_in'] =$this->logged_in;
+            $message = 'Wrong username or password please try again.';
+
+            $this->load->view('inc/header', $data);
+            $this->load->view('form_error',$message);
+            $this->load->view('login_view');
+            $this->load->view('inc/footer');
+        }
+        else{
+            $data = array(
+                'username' =>  $this->input->post('username'),
+                'logged_in' =>1
+            );
+            $this->session->set_userdata($data);
+            redirect('/', location);
+        }
+    }
+
+    public function  verifyUser(){
+        $username = $this->input->post('username');
+        $password = sha1($this->config->item('salt') . $this->input->post('password'));
+
+        $this->load->model('user_model');
+        if($this->user_model->getByUsernameAndPass($username,$password)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function logout(){
+        delete_cookie('username');
+        delete_cookie('password');
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('id');
+        $this->session->unset_userdata('email');
+
+        $data['title'] = 'Logout';
+        $data['heading'] = 'Thank you for your visit. See you next time.';
+        $data['logged_in'] ='';
+
+        $this->load->view('inc/header', $data);
+        $this->load->view('home');
+        $this->load->view('inc/footer');
+
     }
 
 }
