@@ -1,8 +1,8 @@
 body{
 }
 .red{
-    border: 1px solid crimson;
-    border-top:none;
+   /* border: 1px solid crimson;
+    border-top:none;*/
 }
 
 .wrapper{
@@ -12,7 +12,7 @@ body{
 .content{
     float:none;
     margin: 0 auto;
-    padding: 10px;
+    padding: 10px 0;
 }
 header{
     font-family: Consolas, "Liberation Mono", Courier, monospace;
@@ -125,7 +125,7 @@ form .button:hover{
 }
 
 /****************** ALERTS***********/
-div.msg{
+.msg{
     width: 600px;
     margin: 0 auto;
     text-align: center;
@@ -133,20 +133,21 @@ div.msg{
     font: normal 17px Arial;
     font-family: Consolas, "Liberation Mono", Courier, monospace
 }
-div.error{
+.error{
     color: red;
 }
-div.success{
+.success{
     color: #58c93a;
 }
 /************ EDIT POST ***********/
 .new{
-    text-align: left;
+    margin-top: 20px;
+    text-align: center;
 }
 .new button{
     background-color: #444444;
-    width: 150px;
-    height: 45px;
+    width: 200px;
+    height: 55px;
     border-radius: 15px;
 }
 .new a{
@@ -161,6 +162,9 @@ div.success{
 .edit form img{
     width: 250px;
     height: auto;
+}
+.contact img{
+    padding: 0 !important;
 }
 
 /****************** SINGLE POST ******************/
@@ -232,6 +236,10 @@ p{
     width: 140px;
     margin-left: 20px;
 }
+.comment .button a{
+    text-decoration: none;
+    color: #00CC00;
+}
 .comments .row{
     padding: 10px;
 }
@@ -257,6 +265,14 @@ p{
 .table img{
     width: 25px;
     height: auto;
+}
+.table .text{
+    width: 500px;
+    text-align: justify;
+}
+.table .pass{
+    width: 300px  !important;
+    text:mul
 }
 /************LOGIN ************/
 
@@ -314,4 +330,13 @@ h3{
 }
 .user{
     color: #00CC00;
+}
+.col-md-12 {
+    padding: 0;
+}
+.col-md-12 img{
+    padding: 20px 0;
+}
+.col-md-12 .row{
+    margin: 0 auto;
 }

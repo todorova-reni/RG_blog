@@ -1,16 +1,20 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Reni
  * Date: 30.11.2015 г.
  * Time: 19:42 ч.
  */
-class Comment_model extends  CI_Model
+class Comment_model extends CI_Model
 {
 
-    public function  getAll()
+    public function  getListComments()
     {
-        $q = $this->db->get( 'comment' );
+        $this->db->select('comment.id AS number, comment.body AS comment, comment.id_post, comment.author, comment.date, post.id');
+        $this->db->from('comment');
+        $this->db->join('post', 'comment.id_post = post.id');
+        $q = $this->db->get();
 
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $row) {
@@ -20,24 +24,31 @@ class Comment_model extends  CI_Model
         }
     }
 
-    public function createComment($body, $id_post, $id_user){
-
+    public function createComment( $body, $id_post, $author )
+    {
         $data = array(
-            'body'     => $body,
-            'id_post'  => $id_post,
-            'id_author'=> $id_user,
+            'body' => $body,
+            'id_post' => $id_post,
+            'author' => $author,
         );
-        return $this->db->insert('comment', $data);
+        return $this->db->insert( 'comment', $data );
     }
 
-    public function getByIdPost($id){
-        $query = $this->db->get_where('comment', array('id_post' => $id));
-        return $query->row();
+    public function getByIdPost( $id )
+    {
+        $this->db->select('comment.id, comment.body, comment.date, comment.author, comment.id_post, post.id,');
+        $this->db->from('comment');
+        $this->db->join('post', 'comment.id_post = post.id');
+        $this->db->where( 'id_post', $id );
+        $query = $this->db->get();
+
+        return $query->result();
     }
 
-    public function  deletePost($id){
-        $this->db->where('id',$id);
-        return $this->db->delete('comment');
+    public function  deleteComment( $id )
+    {
+        $this->db->where( 'id', $id );
+        return $this->db->delete( 'comment' );
     }
 
 }
