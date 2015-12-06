@@ -1,3 +1,21 @@
+<div class="msg">
+    <?php if ($this->session->flashdata( 'success_verification' )) { ?>
+        <div class="alert alert-success">
+            <?php echo $this->session->flashdata( 'success_verification' ); ?>
+        </div>
+    <?php }
+    if ($this->session->flashdata( 'error_verification' )) { ?>
+        <div class="alert alert-warning">
+            <?php echo $this->session->flashdata( 'error_verification' ); ?>
+        </div>
+    <?php }
+    if ($this->session->flashdata( 'error_login' )) { ?>
+        <div class="alert alert-warning">
+            <?php echo $this->session->flashdata( 'error_login' ); ?>
+        </div>
+    <?php }?>
+</div>
+
 <?php $attributes = array( 'class' => 'form-signin' );
 echo form_open( 'login/login_user', $attributes ); ?>
 <h2 class="form-signin-heading">Please login</h2>

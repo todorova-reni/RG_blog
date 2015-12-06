@@ -88,19 +88,19 @@ class Contact extends CI_Controller
             $this->load->view( 'inc/footer' );
             $_SESSION['captcha'] = $captcha['word'];
         } else {
-            $_SESSION['captcha'] = '';
-            $captcha = $this->captcha_model->generateCaptcha();
+            /* $_SESSION['captcha'] = '';
+           $captcha = $this->captcha_model->generateCaptcha();
             $data['title'] = 'Contact';
             $data['heading'] = 'Contact Form';
             $data['logged_in'] = $this->logged_in;
             $data['is_admin'] = $this->is_admin;
             $this->load->view( 'inc/header', $data );
-            $message = "Your message was sent successfully";
-            $this->load->view( 'form_success', $message );
             $this->load->view( 'contact_view', $captcha );
-            $this->load->view( 'inc/footer' );
+            $this->load->view( 'inc/footer' );*/
             $this->create_record();
             $this->send_email();
+            $this->session->set_flashdata( 'success_email', 'Your message was send successfully!' );
+            redirect( 'contact/' );
         }
     }
 

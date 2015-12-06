@@ -1,0 +1,145 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.11
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: 
+-- Версия на сървъра: 5.6.21
+-- PHP Version: 5.5.19
+
+SET FOREIGN_KEY_CHECKS=0;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `blog`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE IF NOT EXISTS `comment` (
+`id` int(10) NOT NULL,
+  `body` text COLLATE utf8_unicode_ci NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_post` int(10) NOT NULL,
+  `author` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Схема на данните от таблица `comment`
+--
+
+INSERT INTO `comment` (`id`, `body`, `date`, `id_post`, `author`) VALUES
+(2, 'Est ex melius commodo deleniti, possim copiosae omittantur nam eu. No mei stet aliquip, cu vel inani accusamus, eos unum inani ea.Post body here', '2013-05-20 12:00:00', 32, 'reni'),
+(3, ' Nec an odio idque dolores, illud libris nonumes in nam, an audiam electram dignissim eos.', '0000-00-00 00:00:00', 33, 'admin'),
+(4, 'Vitae fabulas consequuntur pro at, sea natum gubergren no, ea nibh honestatis eloquentiam sit. Vis et porro integre gloriatur. ', '0000-00-00 00:00:00', 35, 'reni'),
+(5, ' Nec an odio idque dolores, illud libris nonumes in nam, an audiam electram dignissim eos.', '0000-00-00 00:00:00', 40, 'admin'),
+(6, 'Vitae fabulas consequuntur pro at, sea natum gubergren no, ea nibh honestatis eloquentiam sit. Vis et porro integre gloriatur. ', '0000-00-00 00:00:00', 45, 'reni'),
+(7, 'Cu eam agam graeco, contentiones disputationi no mel. Eu agam dictas vel. ', '0000-00-00 00:00:00', 30, 'admin'),
+(8, 'Est ex melius commodo deleniti, possim copiosae omittantur nam eu. No mei stet aliquip, cu vel inani accusamus, eos unum inani ea.', '0000-00-00 00:00:00', 30, 'reni'),
+(9, 'Cu eam agam graeco, contentiones disputationi no mel. Eu agam dictas vel. ', '0000-00-00 00:00:00', 30, 'mariq');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
+ ADD PRIMARY KEY (`id`), ADD KEY `comment` (`id_post`), ADD KEY `id_user` (`author`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- Ограничения за дъмпнати таблици
+--
+
+--
+-- Ограничения за таблица `comment`
+--
+ALTER TABLE `comment`
+ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
+-- phpMyAdmin SQL Dump
+-- version 4.2.11
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: 
+-- Версия на сървъра: 5.6.21
+-- PHP Version: 5.5.19
+
+SET FOREIGN_KEY_CHECKS=0;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `blog`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+`id` int(10) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `reg_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_admin` tinyint(1) NOT NULL,
+  `verification_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `activated` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+--
+-- Схема на данните от таблица `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `reg_date`, `is_admin`, `verification_code`, `activated`) VALUES
+(13, 'admin', '842c68c34e06b58d4ee0ff866875e152031f96de', 'todorova.reni93@gmail.com', '2015-11-25 16:53:30', 1, 'HftnUCzUFwVUghyQ08Bi', 1),
+(14, 'reni', '842c68c34e06b58d4ee0ff866875e152031f96de', 'reni_6@abv.bg', '2015-11-25 16:56:48', 0, 'am5x8bENjAlrG06NJU9M', 1),
+(16, 'asen', '3b5ba19d110bb3c4c1ed90a0d13a235debd7a2a8', 'asen348662@abv.bg', '2015-12-01 14:09:12', 0, 'OoAXjHK3VZu2E6cFF8dE', 0),
+(18, 'mariq', '2f6bfc0a40e7b559835a1078e37a4f26d2a6f347', 'mariq4844743@abv.bg', '2015-12-01 14:10:35', 0, 'LmlHVkE4MuyhqY3WW0pk', 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;SET FOREIGN_KEY_CHECKS=1;
+COMMIT;

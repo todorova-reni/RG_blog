@@ -11,6 +11,7 @@ class User_model extends CI_Model
 
     public function  getListUsers()
     {
+        $this->db->order_by( 'id', 'DESC' );
         $q = $this->db->get( 'user' );
 
         if ($q->num_rows() > 0) {
@@ -56,7 +57,8 @@ class User_model extends CI_Model
         }
     }
 
-    public function checkAdmin($username){
+    public function checkAdmin( $username )
+    {
         $this->db->select( 'username, activated, is_admin' );
         $this->db->from( 'user' );
         $this->db->where( 'username', $username );
@@ -69,46 +71,7 @@ class User_model extends CI_Model
             return false;
         }
     }
-    /*public function authentication()
-    {
-        $username = $this->input->post( 'username' );
-        $password = sha1( $this->config->item( 'salt' ) . $this->input->post( 'password' ) );
-        $remember = $this->input->post( 'remember' );
 
-        $sql = "SELECT * FROM user WHERE username = '{$username}' LIMIT 1";
-        $result = $this->db->query( $sql );
-        $row = $result->row();
-        if ($result->num_rows() === 1) {
-            if ($row->activated) {
-                if ($row->password === $password) {
-                    $session_data = array(
-                        'id' => $row->id,
-                        'username' => $row->username,
-                        'email' => $row->email
-                    );
-                    $this->set_session( $session_data );
-                    return 'logged_in';
-                } else {
-                    return 'incorrect_password';
-                }
-            } else {
-                return 'not_activated';
-            }
-        } else {
-            return 'user_not_found';
-        }
-    }
-
-    public function set_session( $session_data )
-    {
-        $sess_data = array(
-            'id' => $session_data['id'],
-            'username' => $session_data['username'],
-            'email' => $session_data['email'],
-            'logged_in' => 1
-        );
-        $this->session->set_userdata( $sess_data );
-    }*/
     public function  deleteUser( $id )
     {
         $this->db->where( 'id', $id );

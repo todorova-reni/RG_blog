@@ -19,7 +19,7 @@ class Edit_Post extends CI_Controller
             $this->logged_in = true;
         } else {
             $this->logged_in = false;
-            redirect( site_url() . "/login" );
+            redirect( site_url() . "login" );
         }
         if ($this->session->userdata( 'is_admin' )) {
             $this->is_admin = true;
@@ -81,14 +81,13 @@ class Edit_Post extends CI_Controller
         if ($this->form_validation->run() === FALSE) {
             $data['logged_in'] = $this->logged_in;
             $data['is_admin'] = $this->is_admin;
-            $this->load->view( 'inc/header',$data );
-            $this->load->view( 'edit_view');
+            $this->load->view( 'inc/header', $data );
+            $this->load->view( 'edit_view' );
             $this->load->view( 'inc/footer' );
         } else {
             $data['logged_in'] = $this->logged_in;
             $data['is_admin'] = $this->is_admin;
-            $this->load->view( 'inc/header',$data );
-            $this->load->view( 'form_success' );
+            $this->load->view( 'inc/header', $data );
             $this->load->view( 'edit_view' );
             $this->load->view( 'inc/footer' );
             $this->create();
@@ -107,24 +106,22 @@ class Edit_Post extends CI_Controller
         $this->load->model( 'post_model' );
 
         if ($id > 0) {
+            $this->session->set_flashdata( 'success_post_update', 'Your article was updatedS successfully!' );
             $this->post_model->updatePost( $id, $title, $body, $author, $date, $picture );
-            redirect( site_url() . "/admin" );
+            redirect( site_url() . "admin" );
         } else {
+            $this->session->set_flashdata( 'success_post_add', 'Your article was posted successfully!' );
             $this->post_model->createPost( $title, $body, $author, $date, $picture );
-            redirect( site_url() . "/edit_post" );
+            redirect( site_url() . "edit_post" );
         }
-    }
-
-    public function delete()
-    {
-        $id = $this->uri->segment( 3 );
-        $this->post_model->deletePost( $id );
-
-        redirect( 'admin/getPosts' );
     }
 
     public function  do_upload()
     {
+        if (UPLOAD_ERR_NO_FILE == $_FILES['pic']['error']) {
+            return null;
+        }
+
         $type = explode( '.', $_FILES["pic"]["name"] );
         $type = $type[count( $type ) - 1];
         $pic_name = uniqid( rand() ) . '.' . $type;
@@ -153,5 +150,13 @@ class Edit_Post extends CI_Controller
         );
         $this->load->library( 'image_lib', $config );
         $this->image_lib->resize();
+    }
+
+    public function delete()
+    {
+        $id = $this->uri->segment( 3 );
+        $this->post_model->deletePost( $id );
+
+        redirect( 'admin/getPosts' );
     }
 }

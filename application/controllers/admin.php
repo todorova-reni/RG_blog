@@ -10,11 +10,12 @@ if (!defined( 'BASEPATH' )) exit( 'No direct script access allowed' );
 class Admin extends CI_Controller
 {
     private $logged_in;
+
     public function __construct()
     {
         parent:: __construct();
 
-        if ($this->session->userdata( 'logged_in' )&& $this->session->userdata( 'is_admin' )) {
+        if ($this->session->userdata( 'logged_in' ) && $this->session->userdata( 'is_admin' )) {
             $this->logged_in = true;
             $this->is_admin = true;
         } else {
@@ -34,7 +35,7 @@ class Admin extends CI_Controller
         $data['is_admin'] = $this->is_admin;
 
         $this->load->view( 'inc/header', $data );
-        $this->load->view( 'admin_view');
+        $this->load->view( 'admin_view' );
         $this->load->view( 'inc/footer' );
     }
 
@@ -47,7 +48,7 @@ class Admin extends CI_Controller
         $data['logged_in'] = $this->logged_in;
         $data['is_admin'] = $this->is_admin;
         $this->load->view( 'inc/header', $data );
-        $this->load->view( 'admin_view');
+        $this->load->view( 'admin_view' );
         $this->load->view( 'list_view_posts', $data );
         $this->load->view( 'inc/footer' );
     }
@@ -60,7 +61,7 @@ class Admin extends CI_Controller
         $data['logged_in'] = $this->logged_in;
         $data['is_admin'] = $this->is_admin;
         $this->load->view( 'inc/header', $data );
-        $this->load->view( 'admin_view');
+        $this->load->view( 'admin_view' );
         $this->load->view( 'list_view_users', $data );
         $this->load->view( 'inc/footer' );
     }
@@ -73,7 +74,7 @@ class Admin extends CI_Controller
         $data['logged_in'] = $this->logged_in;
         $data['is_admin'] = $this->is_admin;
         $this->load->view( 'inc/header', $data );
-        $this->load->view( 'admin_view');
+        $this->load->view( 'admin_view' );
         $this->load->view( 'list_view_comments', $data );
         $this->load->view( 'inc/footer' );
     }

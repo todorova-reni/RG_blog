@@ -11,9 +11,10 @@ class Comment_model extends CI_Model
 
     public function  getListComments()
     {
-        $this->db->select('comment.id AS number, comment.body AS comment, comment.id_post, comment.author, comment.date, post.id');
-        $this->db->from('comment');
-        $this->db->join('post', 'comment.id_post = post.id');
+        $this->db->select( 'comment.id AS number, comment.body AS comment, comment.id_post, comment.author, comment.date, post.id' );
+        $this->db->from( 'comment' );
+        $this->db->join( 'post', 'comment.id_post = post.id' );
+        $this->db->order_by( 'comment.id', 'DESC' );
         $q = $this->db->get();
 
         if ($q->num_rows() > 0) {
@@ -24,6 +25,18 @@ class Comment_model extends CI_Model
         }
     }
 
+    public function getByIdPost( $id )
+    {
+        $this->db->select( 'comment.id, comment.body, comment.date, comment.author, comment.id_post, post.id,' );
+        $this->db->from( 'comment' );
+        $this->db->join( 'post', 'comment.id_post = post.id' );
+        $this->db->where( 'id_post', $id );
+        $this->db->order_by( 'comment.date', 'DESC' );
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
     public function createComment( $body, $id_post, $author )
     {
         $data = array(
@@ -32,17 +45,6 @@ class Comment_model extends CI_Model
             'author' => $author,
         );
         return $this->db->insert( 'comment', $data );
-    }
-
-    public function getByIdPost( $id )
-    {
-        $this->db->select('comment.id, comment.body, comment.date, comment.author, comment.id_post, post.id,');
-        $this->db->from('comment');
-        $this->db->join('post', 'comment.id_post = post.id');
-        $this->db->where( 'id_post', $id );
-        $query = $this->db->get();
-
-        return $query->result();
     }
 
     public function  deleteComment( $id )

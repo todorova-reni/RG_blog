@@ -15,6 +15,7 @@ body{
     padding: 10px 0;
 }
 header{
+    width: 100%;
     font-family: Consolas, "Liberation Mono", Courier, monospace;
     font-size: 12px;
     color: #555555;
@@ -71,8 +72,8 @@ h2{
     margin-bottom: 10px;
 }
 form{
-    width: 100%;
-    padding: 20px;
+    width: 90%;
+    padding: 10px;
     font: oblique 17px Helvetica;
 }
 .custom, .custom tr, .custom tr th, .custom tr td{
@@ -120,13 +121,14 @@ form .button:hover{
     height: 40px
 }
 .cap_lb img{
+    padding: 0 !important;
     width: 115px !important;
     height: 40px !important;
 }
 
 /****************** ALERTS***********/
 .msg{
-    width: 600px;
+    width: 750px;
     margin: 0 auto;
     text-align: center;
     padding: 10px 15px;

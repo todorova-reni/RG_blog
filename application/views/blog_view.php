@@ -11,15 +11,17 @@
     <h2 class="page-header">Welcome To My Blog</h2>
     <?php foreach ($posts->result() as $row) { ?>
         <div class="row">
-            <img class="col-md-6 thumb" src="<?php echo base_url(); ?>images/<?php echo $row->picture; ?>">
+            <img class="col-md-6 thumb"
+                 src="<?php echo base_url(); ?>images/<?php echo isset( $row->picture ) ? $row->picture : 'default.jpg'; ?>">
 
             <h3 class="title col-md-6">
                 <b><?php echo anchor( 'blog/read/' . $row->id, $row->title ); ?></b>
             </h3>
 
             <div class="info">
-                <span><i class="fa fa-user"></i> <?php echo $row->author; ?></span>
+                <span><i class="fa fa-user"></i> <?php echo ucfirst( $row->author ); ?></span>
                 <span><i class="fa fa-calendar"></i> <?php echo $row->date; ?></span>
+                <span><i class="fa fa-eye"></i><?php echo $row->views; ?></span>
             </div>
             <p>
                 <?php

@@ -49,56 +49,59 @@ class  Blog extends CI_Controller
     public function read()
     {
         $id = $this->uri->segment( 3 );
+        $data['post'] = $this->post_model->getById( $id );
+        if (empty( $data['post'] )) {
+            show_404();
+        }
+
         $this->post_model->increaseView( $id );
 
         $data['title'] = 'Single';
         $data['logged_in'] = $this->logged_in;
         $data['is_admin'] = $this->is_admin;
-        $data['post'] = $this->post_model->getById( $id );
-
         $data['comments'] = $this->comment_model->getByIdPost( $id );
         $this->load->view( 'inc/header', $data );
         $this->load->view( 'read_view', $data );
         $this->load->view( 'inc/footer' );
     }
 
-    public function submission(){
+    public function submission()
+    {
+        $id = $this->uri->segment( 3 );
         $FormRules = array(
             array(
-                'field' => 'body',
-                'label' => 'Body',
+                'field' => 'comment',
+                'label' => 'Comment',
                 'rules' => 'trim|strip_tags|xss_clean|required|min_length[3]|max_length[255]'
             )
-    );
+        );
         $this->form_validation->set_rules( $FormRules );
 
         if ($this->form_validation->run() === FALSE) {
             $data['logged_in'] = $this->logged_in;
             $data['is_admin'] = $this->is_admin;
-            $this->load->view( 'inc/header' );
-            $this->load->view( 'edit_view', $data );
+            $this->load->view( 'inc/header', $data );
+            $this->session->set_flashdata( 'error_comment', 'Your comment must contain at least 3 characters.' );
+            redirect( '/blog/read/' . $id );
             $this->load->view( 'inc/footer' );
         } else {
             $data['logged_in'] = $this->logged_in;
             $data['is_admin'] = $this->is_admin;
-            $this->load->view( 'inc/header',$data);
-            $this->load->view( 'form_success' );
-            $this->load->view( 'edit_view' );
-            $this->load->view( 'inc/footer' );
             $this->addComment();
+            $this->session->set_flashdata( 'success_comment', 'Your comment is posted.' );
+            redirect( '/blog/read/' . $id, 'refresh' );
         }
     }
 
-    public function addComment(){
+    public function addComment()
+    {
 
-        $id = $this->uri->segment(3);
-        var_dump( $id = $this->uri->segment(3));
-        exit;
-        $body = $this->input->post('comment');
-        $author =  $this->session->userdata( 'username');
+        $id = $this->uri->segment( 3 );
+        $body = $this->input->post( 'comment' );
+        $author = $this->session->userdata( 'username' );
 
-        $this->load->model('comment_model');
-        $this->comment_model->createComment($body, $id, $author);
+        $this->load->model( 'comment_model' );
+        $this->comment_model->createComment( $body, $id, $author );
 
     }
 }
